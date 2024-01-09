@@ -737,7 +737,7 @@ namespace MySqlTuner
                 }
 
                 // Get the fragmented tables
-                sql = "SELECT TABLE_SCHEMA, TABLE_NAME, Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as fragmentation_ratio  FROM information_schema.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'mysql') AND Data_free > 0 AND NOT ENGINE = 'MEMORY'";
+                sql = "SELECT TABLE_SCHEMA, TABLE_NAME, Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as fragmentation_ratio  FROM information_schema.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'mysql') AND Data_free > 0 AND NOT ENGINE = 'MEMORY' order by fragmentation_ratio desc";
                 using (MySqlCommand command = new MySqlCommand(sql, this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
