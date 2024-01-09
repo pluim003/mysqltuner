@@ -18,6 +18,10 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,12 +34,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>MySqlTuner.Program</StartupObject>
@@ -128,7 +128,6 @@
     </Compile>
     <Compile Include="..\MySQLTuner\FormMain.cs">
       <Link>FormMain.cs</Link>
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\MySQLTuner\FormMain.designer.cs">
       <Link>FormMain.designer.cs</Link>
@@ -190,7 +189,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\.nuget\packages\Microsoft.NETFramework.ReferenceAssemblies.net20\1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\.nuget\packages\Microsoft.NETFramework.ReferenceAssemblies.net20\1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

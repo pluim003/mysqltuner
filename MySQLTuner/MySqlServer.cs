@@ -97,6 +97,9 @@ namespace MySqlTuner
             this.EngineStatistics = new Dictionary<string, long>();
             this.Status = new Dictionary<string, string>();
             this.Variables = new Dictionary<string, string>();
+            this.FragmentedSchemaName = new Dictionary<long, string>();
+            this.FragmentedTableName = new Dictionary<long, string>();
+            this.FragmentedTableRatio = new Dictionary<long, string>();
         }
 
         /// <summary>
@@ -146,10 +149,34 @@ namespace MySqlTuner
         public long FragmentedTables { get; private set; }
 
         /// <summary>
-        /// Gets or sets the host.
+        /// Gets the number of fragmented tables.
         /// </summary>
         /// <value>
-        /// The host.
+        /// The number of tables.
+        /// </value>
+        public Dictionary<long, string> FragmentedSchemaName { get; private set; }
+
+        /// <summary>
+        /// Gets the Schemaname of the table's owner.
+        /// </summary>
+        /// <value>
+        /// The schema.
+        /// </value>
+        public Dictionary<long, string> FragmentedTableName { get; private set; }
+
+        /// <summary>
+        /// Gets the tablename.
+        /// </summary>
+        /// <value>
+        /// The table.
+        /// </value>
+        public Dictionary<long, string> FragmentedTableRatio { get; private set; }
+
+        /// <summary>
+        /// Gets the FragmentationRatio.
+        /// </summary>
+        /// <value>
+        /// The fragmentation ratio.
         /// </value>
         public string Host { get; set; }
 
@@ -708,6 +735,27 @@ namespace MySqlTuner
                         this.FragmentedTables = fragmentedTables;
                     }
                 }
+
+                // Get the fragmented tables
+                sql = "SELECT TABLE_SCHEMA, TABLE_NAME, Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as fragmentation_ratio  FROM information_schema.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'mysql') AND Data_free > 0 AND NOT ENGINE = 'MEMORY'";
+                using (MySqlCommand command = new MySqlCommand(sql, this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        int i = 0;
+                        while (reader.Read())
+                        {
+                            string tableSchema = GetStringFromReader(reader, 0);
+                            string tableName = GetStringFromReader(reader, 1);
+                            string fragmentRatio = GetStringFromReader(reader, 5);
+                            this.FragmentedSchemaName.Add(i, tableSchema);
+                            this.FragmentedTableName.Add(i, tableName);
+                            this.FragmentedTableRatio.Add(i, fragmentRatio);
+
+                            i++;
+                         }
+                    }
+                }
             }
             else
             {
@@ -730,6 +778,9 @@ namespace MySqlTuner
                 this.EngineCount = new Dictionary<string, long>();
                 this.EngineStatistics = new Dictionary<string, long>();
                 this.FragmentedTables = 0;
+                this.FragmentedSchemaName = new Dictionary<long, string>();
+                this.FragmentedTableName = new Dictionary<long, string>();
+                this.FragmentedTableRatio = new Dictionary<long, string>();
 
                 // Go through every database
                 foreach (string database in databases)
