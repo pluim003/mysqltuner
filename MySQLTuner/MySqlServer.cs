@@ -149,23 +149,23 @@ namespace MySqlTuner
         public long FragmentedTables { get; private set; }
 
         /// <summary>
-        /// Gets or sets the host.
+        /// Gets the number of fragmented tables.
         /// </summary>
         /// <value>
-        /// The host.
+        /// The number of tables.
         /// </value>
         public Dictionary<long, string> FragmentedSchemaName { get; private set; }
 
         /// <summary>
-        /// Gets the Schemaname belonging to the fragmented table.
+        /// Gets or sets the Schemaname of the table's owner.
         /// </summary>
         /// <value>
         /// The schema.
         /// </value>
-        public Dictionary<long, string> FragmentedTableName { get; private set; }
+        public Dictionary<long, string> FragmentedTableName { get; set; }
 
         /// <summary>
-        /// Gets the tablename which is fragmented.
+        /// Gets the tablename.
         /// </summary>
         /// <value>
         /// The table.
@@ -173,7 +173,7 @@ namespace MySqlTuner
         public Dictionary<long, string> FragmentedTableRatio { get; private set; }
 
         /// <summary>
-        /// Gets the FragmentationRatio.
+        /// Gets or sets the FragmentationRatio.
         /// </summary>
         /// <value>
         /// The fragmentation ratio.
