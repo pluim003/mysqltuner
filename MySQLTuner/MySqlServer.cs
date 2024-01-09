@@ -157,12 +157,12 @@ namespace MySqlTuner
         public Dictionary<long, string> FragmentedSchemaName { get; private set; }
 
         /// <summary>
-        /// Gets or sets the Schemaname of the table's owner.
+        /// Gets the Schemaname of the table's owner.
         /// </summary>
         /// <value>
         /// The schema.
         /// </value>
-        public Dictionary<long, string> FragmentedTableName { get; set; }
+        public Dictionary<long, string> FragmentedTableName { get; private set; }
 
         /// <summary>
         /// Gets the tablename.
@@ -173,7 +173,7 @@ namespace MySqlTuner
         public Dictionary<long, string> FragmentedTableRatio { get; private set; }
 
         /// <summary>
-        /// Gets or sets the FragmentationRatio.
+        /// Gets the FragmentationRatio.
         /// </summary>
         /// <value>
         /// The fragmentation ratio.
