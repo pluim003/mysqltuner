@@ -497,20 +497,19 @@ namespace MySqlTuner
             if (this.Server.FragmentedTables > 0)
             {
                 this.PrintMessage(Status.Info, "The following tables are fragmented");
-                for (int i = 0; i < Server.FragmentedTables; i++)
+                for (int i = 0; i < this.Server.FragmentedTables; i++)
                 {
                     this.PrintMessage(Status.Info, this.Server.FragmentedSchemaName[i] + "." + this.Server.FragmentedTableName[i] + ": " + this.Server.FragmentedTableRatio[i]);
-    
                 }
 
                 this.PrintMessage(Status.Info, "End of fragmented tables list");
             }
         }
 
-            /// <summary>
-            /// Display some security recommendations.
-            /// </summary>
-            private void SecurityRecommendations()
+        /// <summary>
+        /// Display some security recommendations.
+        /// </summary>
+        private void SecurityRecommendations()
         {
             // Get the name of the password column
             string passwordColumnName;
