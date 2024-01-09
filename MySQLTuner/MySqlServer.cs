@@ -155,20 +155,28 @@ namespace MySqlTuner
         /// </summary>
         /// <value>
         /// The host.
-        /// </value>
-        /// 
+        /// </value> 
         public Dictionary<string, string> FragmentedTablesList { get; private set; }
   
         /// <summary>
-        /// Gets the fragmented tables
+        /// Gets the fragmented tables.
         /// 
         /// </summary>
         /// 
         public Dictionary<long, string> FragmentedSchemaName { get; private set; }
-
-        public Dictionary<long, string> FragmentedTableName {  get; private set; }
-
+        /// <summary>
+        /// Gets the Schemaname belonging to the fragmented table.
+        /// 
+        /// </summary>
+        public Dictionary<long, string> FragmentedTableName { get; private set; }
+        /// <summary>
+        /// Gets the tablename which is fragmented.
+        /// </summary>
         public Dictionary<long, string> FragmentedTableRatio { get; private set; }
+        /// <summary>
+        /// Gets the FragmentationRatio.
+        /// 
+        /// </summary>
 
         public string Host { get; set; }
 
@@ -728,11 +736,7 @@ namespace MySqlTuner
                     }
                 }
                 // Get the fragmented tables
-                ///List<string>FragmentedTableSchema = new List<string>();
-                ///List<string>FragmentedTableName = new List<string>();
-                
-
-
+  
                 sql = "SELECT TABLE_SCHEMA, TABLE_NAME, Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as fragmentation_ratio  FROM information_schema.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'mysql') AND Data_free > 0 AND NOT ENGINE = 'MEMORY'";
                 using (MySqlCommand command = new MySqlCommand(sql, this.Connection))
                 {

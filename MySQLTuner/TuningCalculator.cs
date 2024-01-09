@@ -492,26 +492,20 @@ namespace MySqlTuner
             {
                 this.PrintMessage(Status.Pass, "Total fragmented tables: 0");
             }
+
             // Show Fragmented tables
             if (this.Server.FragmentedTables > 0)
             {
-
                 this.PrintMessage(Status.Info, "The following tables are fragmented");
                 for (int i = 0; i < Server.FragmentedTables; i++)
-                    {
-                    this.PrintMessage(Status.Info, this.Server.FragmentedSchemaName[i] + "." + this.Server.FragmentedTableName[i] + ": " + this.Server.FragmentedTableRatio[i]) ;
+                {
+                    this.PrintMessage(Status.Info, this.Server.FragmentedSchemaName[i] + "." + this.Server.FragmentedTableName[i] + ": " + this.Server.FragmentedTableRatio[i]);
     
                 }
-                ///foreach (KeyValuePair<string, string> fragmentedTablesList in this.Server.FragmentedTablesList)
-                ///  {
-                ///     this.PrintMessage(Status.Info, this.Server.FragmentedSchemaName, this.Server.FragmentedTableName);
-                //  }
+
                 this.PrintMessage(Status.Info, "End of fragmented tables list");
- 
             }
         }
-
-
 
             /// <summary>
             /// Display some security recommendations.
