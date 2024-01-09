@@ -97,6 +97,11 @@ namespace MySqlTuner
             this.EngineStatistics = new Dictionary<string, long>();
             this.Status = new Dictionary<string, string>();
             this.Variables = new Dictionary<string, string>();
+            this.FragmentedTablesList = new Dictionary<string, string>();
+            this.FragmentedSchemaName = new Dictionary<long, string>();
+            this.FragmentedTableName = new Dictionary<long, string>();
+            this.FragmentedTableRatio = new Dictionary<long, string>();
+
         }
 
         /// <summary>
@@ -151,6 +156,20 @@ namespace MySqlTuner
         /// <value>
         /// The host.
         /// </value>
+        /// 
+        public Dictionary<string, string> FragmentedTablesList { get; private set; }
+  
+        /// <summary>
+        /// Gets the fragmented tables
+        /// 
+        /// </summary>
+        /// 
+        public Dictionary<long, string> FragmentedSchemaName { get; private set; }
+
+        public Dictionary<long, string> FragmentedTableName {  get; private set; }
+
+        public Dictionary<long, string> FragmentedTableRatio { get; private set; }
+
         public string Host { get; set; }
 
         /// <summary>
@@ -708,6 +727,33 @@ namespace MySqlTuner
                         this.FragmentedTables = fragmentedTables;
                     }
                 }
+                // Get the fragmented tables
+                ///List<string>FragmentedTableSchema = new List<string>();
+                ///List<string>FragmentedTableName = new List<string>();
+                
+
+
+                sql = "SELECT TABLE_SCHEMA, TABLE_NAME, Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as fragmentation_ratio  FROM information_schema.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'mysql') AND Data_free > 0 AND NOT ENGINE = 'MEMORY'";
+                using (MySqlCommand command = new MySqlCommand(sql, this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        int i= 0; 
+                        while (reader.Read())
+                        {
+                            string tableSchema = GetStringFromReader(reader, 0);
+                            string tableName = GetStringFromReader(reader, 1);
+                            string fragmentRatio =GetStringFromReader(reader, 5);
+                            FragmentedSchemaName.Add(i, tableSchema);
+                            FragmentedTableName.Add(i, tableName);
+                            FragmentedTableRatio.Add(i, fragmentRatio);
+
+                            ///FragmentedTablesList.Add(tableSchema, tableName);
+
+                            i++;
+                         }
+                    }
+                }
             }
             else
             {
@@ -729,7 +775,12 @@ namespace MySqlTuner
                 // Reset the engine variables
                 this.EngineCount = new Dictionary<string, long>();
                 this.EngineStatistics = new Dictionary<string, long>();
+ 
                 this.FragmentedTables = 0;
+                this.FragmentedTablesList = new Dictionary<string, string>();
+                this.FragmentedSchemaName = new Dictionary<long, string>();
+                this.FragmentedTableName = new Dictionary<long, string>();
+                this.FragmentedTableRatio = new Dictionary<long, string>();
 
                 // Go through every database
                 foreach (string database in databases)
