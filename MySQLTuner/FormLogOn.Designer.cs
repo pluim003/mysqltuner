@@ -6,6 +6,11 @@
 
 namespace MySqlTuner
 {
+    using System.IO;
+
+    using System;
+    using System.Runtime.CompilerServices;
+
     /// <summary>
     /// The Log On Form Designer.
     /// </summary>
@@ -78,6 +83,16 @@ namespace MySqlTuner
             }
 
             base.Dispose(disposing);
+        }
+
+        public class LastConnection
+        {
+            public string Parameter { get; set; }
+            public string Value { get; set; }
+        }
+
+        public static void ReadLastConn()
+        {
         }
 
         #region Windows Form Designer generated code
@@ -202,6 +217,29 @@ namespace MySqlTuner
             this.useSsl.TabIndex = 1;
             this.useSsl.Text = "Use SSL Connection";
             this.useSsl.UseVisualStyleBackColor = true;
+            //
+            // Check if there is a lastconn.conf-file and read the contents
+            //
+            string path = @".\lastconn.conf";
+            if (File.Exists(path))
+            {
+                var lastconnect = new LastConnection();
+                using (StreamReader sr = File.OpenText(path)) 
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        var arrayOfProperties = s.Split(':');
+                        lastconnect.Parameter = arrayOfProperties[0];
+                        lastconnect.Value = arrayOfProperties[1];
+                        if (lastconnect.Parameter == "host") { this.host.Text = lastconnect.Value; }
+                        if (lastconnect.Parameter == "port") { this.port.Text = lastconnect.Value; }
+                        if (lastconnect.Parameter == "username") { this.userName.Text = lastconnect.Value; }
+                        if (lastconnect.Parameter == "password") { this.password.Text = lastconnect.Value; }
+                        Console.WriteLine(s);
+                    }
+                }
+            }
             // 
             // FormLogOn
             // 
@@ -229,6 +267,7 @@ namespace MySqlTuner
             this.Text = "MySQL Tuner";
             this.ResumeLayout(false);
             this.PerformLayout();
+             
 
         }
 

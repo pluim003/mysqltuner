@@ -7,6 +7,7 @@
 namespace MySqlTuner
 {
     using System;
+    using System.IO;
     using System.Windows.Forms;
 
     /// <summary>
@@ -89,6 +90,17 @@ namespace MySqlTuner
                 // Close this dialog
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+            }
+            //
+            // Write the lastconnection-data to lastconn.conf-file
+            //
+            string path = @".\lastconn.conf";
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine("host:" + this.Server.Host );
+                sw.WriteLine("port:" + this.Server.Port );
+                sw.WriteLine("username:" + this.Server.UserName);
+                sw.WriteLine("password:" + this.Server.Password);
             }
         }
     }

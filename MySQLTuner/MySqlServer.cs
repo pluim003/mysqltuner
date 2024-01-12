@@ -412,9 +412,11 @@ namespace MySqlTuner
             }
             catch (Exception ex)
             {
-                if (ex is MySqlException
+                 if (ex is MySqlException
                     || ex is NotSupportedException
-                    || ex is AuthenticationException)
+                    || ex is AuthenticationException
+                    || ex is System.AggregateException
+                    || ex is System.Net.Sockets.SocketException)
                 {
                     // Dispose of the connection
                     if (this.Connection != null)
@@ -434,6 +436,26 @@ namespace MySqlTuner
                     {
                         this.LastError = ex.Message;
                     }
+                    // Set the last error - the throw in original program mentioned System.Net.Sockets.SocketException but using it doesn't result in the error
+                    //                      but System.AggregateException is thrown, added both (to be on the safe side)
+                    if (ex is System.Net.Sockets.SocketException)
+                    {
+                        this.LastError = $"There was an error making a connection to server " + this.Host + $". Please make sure the server can be reached. Details:\r\n{ex.Message}";
+                    }
+                    else
+                    {
+                        this.LastError = ex.Message;
+                    }
+                    // Set the last error
+                    if (ex is System.AggregateException)
+                    {
+                        this.LastError = "There was an error making a connection to server " + this.Host + $". Please make sure the server can be reached. Details:\r\n{ex.Message}";
+                    }
+                    else
+                    {
+                        this.LastError = ex.Message;
+                    }
+
                 }
                 else
                 {
