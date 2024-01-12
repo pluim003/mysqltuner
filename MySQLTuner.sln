@@ -1,13 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySqlTuner", "MySQLTuner\MySqlTuner.csproj", "{35C43F05-DA65-4420-98C2-3A53D29235BD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySqlTuner Test Cases", "MySqlTuner Test Cases\MySqlTuner Test Cases.csproj", "{4E0E1065-B769-4177-9BA7-C9E9F232501D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySqlTuner Legacy", "MySQLTuner Legacy\MySqlTuner Legacy.csproj", "{AE15255B-A814-4295-99E2-E8B0C488BA8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySqlTuner", "MySQLTuner\MySqlTuner.csproj", "{35C43F05-DA65-4420-98C2-3A53D29235BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{076407B5-F84B-4831-A049-38F20B28F86A}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,14 +20,6 @@ Global
 		{35C43F05-DA65-4420-98C2-3A53D29235BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35C43F05-DA65-4420-98C2-3A53D29235BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35C43F05-DA65-4420-98C2-3A53D29235BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E0E1065-B769-4177-9BA7-C9E9F232501D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E0E1065-B769-4177-9BA7-C9E9F232501D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E0E1065-B769-4177-9BA7-C9E9F232501D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E0E1065-B769-4177-9BA7-C9E9F232501D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE15255B-A814-4295-99E2-E8B0C488BA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE15255B-A814-4295-99E2-E8B0C488BA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE15255B-A814-4295-99E2-E8B0C488BA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE15255B-A814-4295-99E2-E8B0C488BA8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
