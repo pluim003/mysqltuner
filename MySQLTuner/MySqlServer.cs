@@ -149,31 +149,31 @@ namespace MySqlTuner
         public long FragmentedTables { get; private set; }
 
         /// <summary>
-        /// Gets the number of fragmented tables.
-        /// </summary>
-        /// <value>
-        /// The number of tables.
-        /// </value>
-        public Dictionary<long, string> FragmentedSchemaName { get; private set; }
-
-        /// <summary>
         /// Gets the Schemaname of the table's owner.
         /// </summary>
         /// <value>
-        /// The schema.
+        /// The schemaname.
         /// </value>
-        public Dictionary<long, string> FragmentedTableName { get; private set; }
+        public Dictionary<long, string> FragmentedSchemaName { get; private set; }
 
         /// <summary>
         /// Gets the tablename.
         /// </summary>
         /// <value>
-        /// The table.
+        /// The tablename.
+        /// </value>
+        public Dictionary<long, string> FragmentedTableName { get; private set; }
+
+        /// <summary>
+        /// Gets the fragmentationratio.
+        /// </summary>
+        /// <value>
+        /// The fragmentationratio.
         /// </value>
         public Dictionary<long, string> FragmentedTableRatio { get; private set; }
 
         /// <summary>
-        /// Gets the FragmentationRatio.
+        /// Gets or sets the Host.
         /// </summary>
         /// <value>
         /// The fragmentation ratio.
@@ -436,6 +436,7 @@ namespace MySqlTuner
                     {
                         this.LastError = ex.Message;
                     }
+
                     // Set the last error - the throw in original program mentioned System.Net.Sockets.SocketException but using it doesn't result in the error
                     //                      but System.AggregateException is thrown, added both (to be on the safe side)
                     if (ex is System.Net.Sockets.SocketException)
@@ -446,6 +447,7 @@ namespace MySqlTuner
                     {
                         this.LastError = ex.Message;
                     }
+
                     // Set the last error
                     if (ex is System.AggregateException)
                     {
@@ -455,7 +457,6 @@ namespace MySqlTuner
                     {
                         this.LastError = ex.Message;
                     }
-
                 }
                 else
                 {

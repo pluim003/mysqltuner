@@ -91,14 +91,13 @@ namespace MySqlTuner
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            //
+
             // Write the lastconnection-data to lastconn.conf-file
-            //
             string path = @".\lastconn.conf";
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("host:" + this.Server.Host );
-                sw.WriteLine("port:" + this.Server.Port );
+                sw.WriteLine("host:" + this.Server.Host);
+                sw.WriteLine("port:" + this.Server.Port);
                 sw.WriteLine("username:" + this.Server.UserName);
                 sw.WriteLine("password:" + this.Server.Password);
             }
