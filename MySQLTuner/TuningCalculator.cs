@@ -93,43 +93,43 @@ namespace MySqlTuner
 
                 // Get the memory
                 ComputerInfo computerInfo = new ComputerInfo();
-                if (this.Server.IsLocal)
-                {
+ //               if (this.Server.IsLocal)
+ //               {
                     this.Server.PhysicalMemory = computerInfo.TotalPhysicalMemory;
                     this.Server.SwapMemory = computerInfo.TotalVirtualMemory - this.Server.PhysicalMemory;
-                }
-                else
-                {
+ //               }
+ //               else
+ //               {
                     // Ask for the physical memory value
-                    string memory = Interaction.InputBox("How much physical memory is on the server (in megabytes)?");
-                    if (string.IsNullOrEmpty(memory) || !ulong.TryParse(memory, out ulong physicalMemory))
-                    {
-                        this.PrintMessage(Status.Info, "Assuming the same amount of physical memory as this computer");
-                        physicalMemory = computerInfo.TotalPhysicalMemory;
-                    }
-                    else
-                    {
-                        this.PrintMessage(Status.Info, "Assuming " + physicalMemory + " MB of physical memory");
-                        physicalMemory *= 1048576;
-                    }
+ //                   string memory = Interaction.InputBox("How much physical memory is on the server (in megabytes)?");
+ //                   if (string.IsNullOrEmpty(memory) || !ulong.TryParse(memory, out ulong physicalMemory))
+ //                   {
+ //                       this.PrintMessage(Status.Info, "Assuming the same amount of physical memory as this computer");
+ //                       physicalMemory = computerInfo.TotalPhysicalMemory;
+ //                   }
+ //                   else
+ //                   {
+  //                      this.PrintMessage(Status.Info, "Assuming " + physicalMemory + " MB of physical memory");
+ //                       physicalMemory *= 1048576;
+ //                   }
 
-                    this.Server.PhysicalMemory = physicalMemory;
+ //                   this.Server.PhysicalMemory = physicalMemory;
 
                     // Ask for the swap memory value
-                    memory = Interaction.InputBox("How much swap space is on the server (in megabytes)?");
-                    if (string.IsNullOrEmpty(memory) || !ulong.TryParse(memory, out ulong swapMemory))
-                    {
-                        this.PrintMessage(Status.Info, "Assuming the same amount of swap space as this computer");
-                        swapMemory = computerInfo.TotalVirtualMemory - this.Server.PhysicalMemory;
-                    }
-                    else
-                    {
-                        this.PrintMessage(Status.Info, "Assuming " + swapMemory + " MB of swap space");
-                        swapMemory *= 1048576;
-                    }
+ //                   memory = Interaction.InputBox("How much swap space is on the server (in megabytes)?");
+ //                   if (string.IsNullOrEmpty(memory) || !ulong.TryParse(memory, out ulong swapMemory))
+ //                   {
+ //                       this.PrintMessage(Status.Info, "Assuming the same amount of swap space as this computer");
+ //                       swapMemory = computerInfo.TotalVirtualMemory - this.Server.PhysicalMemory;
+ //                   }
+ //                   else
+ //                   {
+ //                       this.PrintMessage(Status.Info, "Assuming " + swapMemory + " MB of swap space");
+ //                       swapMemory *= 1048576;
+ //                   }
 
-                    this.Server.SwapMemory = swapMemory;
-                }
+ //                   this.Server.SwapMemory = swapMemory;
+  //              }
 
                 // Load the server values from the database
                 this.Server.Load();
